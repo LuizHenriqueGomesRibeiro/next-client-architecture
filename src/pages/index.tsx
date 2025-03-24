@@ -1,16 +1,7 @@
-import { server } from "@/services/api";
+import { Http } from "@/services/http";
 import { useEffect } from "react";
 
-const apiConfig = {
-  test1: {
-    url: '/',
-    method: 'get'
-  },
-  test2: {
-    url: '/test',
-    method: 'post'
-  },
-} as const;
+const http = new Http();
 
 type ApiConfig = {
   [key: string]: {
@@ -19,12 +10,20 @@ type ApiConfig = {
   };
 };
 
-type ApiMethods = keyof typeof apiConfig;
+type ApiMethods<T extends ApiConfig> = {
+  [K in keyof T]: (params?: any) => Promise<any>;
+};
 
+const apiConfig = {
+  test1: { url: 'https://dog.ceo/api/breeds/list/all', method: 'get' },
+} as const;
+
+type ApiInstanceType = ApiMethods<typeof apiConfig>;
 const ApiClass = createApiClass(apiConfig);
+//@ts-ignore
+const apiInstance: ApiInstanceType = new ApiClass();
 
-const apiInstance = new ApiClass() as Record<ApiMethods, (params?: any) => Promise<any>>;
-apiInstance.test1
+apiInstance.test1().then(console.log);
 
 function createApiClass<T extends ApiConfig>(list: T) {
   return class Api {
@@ -36,18 +35,9 @@ function createApiClass<T extends ApiConfig>(list: T) {
       });
     }
 
-    async request(method: string, url: string, params?: any): Promise<any> {
-      const options: RequestInit = {
-        method: method.toUpperCase(),
-        headers: { 'Content-Type': 'application/json' },
-      };
-
-      if (method.toLowerCase() === 'post' && params) {
-        options.body = JSON.stringify(params);
-      }
-
-      const response = await fetch(url, options);
-      return response.json();
+    async request(method: 'get' | 'post' | 'put' | 'delete', url: string, params?: any): Promise<any> {
+      const response = await http.PublicClient()[method](url);
+      return response.data;
     }
   };
 }
@@ -55,8 +45,8 @@ function createApiClass<T extends ApiConfig>(list: T) {
 export default function Home() {
   useEffect(() => {
     const fetch = async () => {
-      const response2 = await server.breed_hound_images('');
-      console.log('brandom', response2);
+      // const response2 = await server.breed_hound_images('');
+      // console.log('brandom', response2);
     }
 
     fetch();
