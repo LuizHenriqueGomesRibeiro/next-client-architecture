@@ -1,7 +1,3 @@
-export type EndpointMethods = {
-    [K in keyof typeof endpoints]: (params: Record<string, any>) => Promise<any>;
-};
-
 interface Endpoint {
     url: string;
     method: 'get' | 'post' | 'put' | 'delete' | 'patch';

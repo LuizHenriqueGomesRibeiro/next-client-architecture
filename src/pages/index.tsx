@@ -1,8 +1,6 @@
 import { server } from "@/services/api";
 import { useEffect } from "react";
 
-import axios from "axios"
-
 export default function Home() {
   useEffect(() => {
     const fetch = async () => {
