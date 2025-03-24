@@ -1,9 +1,5 @@
 import { Http } from "@/services/http";
 
-const request = {
-
-}
-
 export class PrimitiveServer {
     private publicClient;
     private privateClient;
@@ -13,16 +9,25 @@ export class PrimitiveServer {
         this.privateClient = this.http.PrivateClient();
     }
 
+
     protected async requestTst1({ ...params }) {
-        const response = await this.publicClient.get('/test', {
+        const response = await this['publicClient'].get('/test', {
             params
         });
-        
+
         return response.data;
     }
 
     protected async requestTst2({ ...params }) {
-        const response = await this.publicClient.get('/testTst2', {
+        const response = await this['publicClient'].get('/testTst2', {
+            params
+        });
+
+        return response.data;
+    }
+
+    protected async requestTst3({ ...params }) {
+        const response = await this['publicClient'].get('/testTst3', {
             params
         });
 
