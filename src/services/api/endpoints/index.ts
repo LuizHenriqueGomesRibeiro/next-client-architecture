@@ -14,14 +14,14 @@ export const endpoints: Record<string, Endpoint> = {
         method: 'get',
         authenticated: false,
     },
-    requestTest2: {
-        url: '/test2',
-        method: 'post',
+    breeds_list_all: {
+        url: '/breeds/list/all',
+        method: 'get',
         authenticated: false,
     },
-    requestTest3: {
-        url: '/test3',
-        method: 'put',
+    breed_hound_images: {
+        url: '/breed/hound/images',
+        method: 'get',
         authenticated: false,
     },
 }

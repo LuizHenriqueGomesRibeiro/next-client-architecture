@@ -9,7 +9,7 @@ export class PrimitiveServer {
         this.privateClient = this.http.PrivateClient();
     }
 
-    public async breeds_image_random({ ...params }) {
+    public async breeds_image_random({ ...params }: any) {
         const response = await this['publicClient'].get('/breeds/image/random', {
             params
         });
@@ -17,16 +17,16 @@ export class PrimitiveServer {
         return response.data;
     }
 
-    public async requestTst2({ ...params }) {
-        const response = await this['publicClient'].get('/testTst2', {
+    public async breeds_list_all({ ...params }: any) {
+        const response = await this['publicClient'].get('/breeds/list/all', {
             params
         });
 
         return response.data;
     }
 
-    public async requestTst3({ ...params }) {
-        const response = await this['publicClient'].get('/testTst3', {
+    public async breed_hound_images({ ...params }: any) {
+        const response = await this['publicClient'].get('/breed/hound/images', {
             params
         });
 
