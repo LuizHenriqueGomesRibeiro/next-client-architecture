@@ -1,17 +1,19 @@
-import axios from "axios"
+import { server } from "@/services/api";
 import { useEffect } from "react";
 
+import axios from "axios"
 
 export default function Home() {
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get('https://dog.ceo/api/breed/hound/list');
-      console.log(response.data);
+      const response2 = await server.breeds_image_random('');
+      console.log('brandom', response2);
     }
 
     fetch();
   }, []);
-  return <>
+
+return <>
     hello home
   </>
 }
