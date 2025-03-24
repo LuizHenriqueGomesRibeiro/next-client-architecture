@@ -1,4 +1,5 @@
 import { Http } from "@/services/http";
+import { EndpointMethods, endpoints } from "../endpoints";
 
 export class PrimitiveServer {
     private publicClient;
@@ -7,29 +8,18 @@ export class PrimitiveServer {
     constructor(private readonly http: Http) {
         this.publicClient = this.http.PublicClient();
         this.privateClient = this.http.PrivateClient();
-    }
 
-    public async breeds_image_random({ ...params }: any) {
-        const response = await this['publicClient'].get('/breeds/image/random', {
-            params
+        (Object.keys(endpoints) as Array<keyof typeof endpoints>).forEach((key) => {
+            const { url, method, authenticated } = endpoints[key];
+            (this as any)[key] = async (params: Record<string, any> = {}) => {
+                const client = authenticated ? this.privateClient : this.publicClient;
+                const response = await client[method](url, { params });
+                return response.data;
+            };
         });
-
-        return response.data;
     }
 
-    public async breeds_list_all({ ...params }: any) {
-        const response = await this['publicClient'].get('/breeds/list/all', {
-            params
-        });
-
-        return response.data;
-    }
-
-    public async breed_hound_images({ ...params }: any) {
-        const response = await this['publicClient'].get('/breed/hound/images', {
-            params
-        });
-
-        return response.data;
-    }
+    breeds_image_random!: EndpointMethods["breeds_image_random"];
+    breeds_list_all!: EndpointMethods["breeds_list_all"];
+    breed_hound_images!: EndpointMethods["breed_hound_images"];
 }

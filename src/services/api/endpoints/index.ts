@@ -24,4 +24,4 @@ export const endpoints: Record<string, Endpoint> = {
         method: 'get',
         authenticated: false,
     },
-}
+} as const;

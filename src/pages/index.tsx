@@ -6,7 +6,7 @@ import axios from "axios"
 export default function Home() {
   useEffect(() => {
     const fetch = async () => {
-      const response2 = await server.breeds_image_random('');
+      const response2 = await server.breed_hound_images('');
       console.log('brandom', response2);
     }
 
