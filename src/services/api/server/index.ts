@@ -1,4 +1,5 @@
 import { Http } from "@/services/http";
+import { endpoints } from "../endpoints";
 
 export class PrimitiveServer {
     private publicClient;
@@ -7,30 +8,16 @@ export class PrimitiveServer {
     constructor(private readonly http: Http) {
         this.publicClient = this.http.PublicClient();
         this.privateClient = this.http.PrivateClient();
+        this.generateMethods();
     }
 
-
-    protected async requestTst1({ ...params }) {
-        const response = await this['publicClient'].get('/test', {
-            params
+    private generateMethods() {
+        Object.entries(endpoints).forEach(([key, { url, authenticated }]) => {
+            (this as any)[key] = async (params: Record<string, any>) => {
+                const client = authenticated ? this.privateClient : this.publicClient;
+                const response = await client.get(url, { params });
+                return response.data;
+            };
         });
-
-        return response.data;
-    }
-
-    protected async requestTst2({ ...params }) {
-        const response = await this['publicClient'].get('/testTst2', {
-            params
-        });
-
-        return response.data;
-    }
-
-    protected async requestTst3({ ...params }) {
-        const response = await this['publicClient'].get('/testTst3', {
-            params
-        });
-
-        return response.data;
     }
 }

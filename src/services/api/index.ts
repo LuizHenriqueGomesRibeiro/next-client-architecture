@@ -1,3 +1,4 @@
+import { EndpointMethods } from "./endpoints";
 import { PrimitiveServer } from "./server";
 import { Http } from "../http";
 
