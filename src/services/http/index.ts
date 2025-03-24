@@ -1,18 +1,21 @@
 import { AxiosInstance } from "axios";
 import { createConfiguredAxiosInstance } from "../axios";
 
-export class Http {
-    public PublicClient() {
+class Http {
+    public publicClient() {
         return createConfiguredAxiosInstance({
             url: "https://dog.ceo/api",
             withBearerToken: false,
         }) as AxiosInstance;
     }
   
-    public PrivateClient() {
+    public privateClient() {
         return createConfiguredAxiosInstance({
             url: "https://dog.ceo/api",
             withBearerToken: true,
         }) as AxiosInstance;
     }
 }
+
+const http = new Http();
+export default http;

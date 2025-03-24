@@ -1,12 +1,8 @@
-import { PrimitiveServer } from "./server";
-import { endpoints } from "./endpoints";
-import { Http } from "../http";
+import { ApiInstanceType, PrimitiveServer } from "./server";
+import { PrimitiveClient } from "./client";
 
-export type EndpointMethods = {
-    [K in keyof typeof endpoints]: (params: Record<string, any>) => Promise<any>;
-};
+//@ts-ignore
+const server: ApiInstanceType = new PrimitiveServer();
+const client = new PrimitiveClient();
 
-const http = new Http();
-const server = new PrimitiveServer(http);
-
-export { server };
+export { server, client };

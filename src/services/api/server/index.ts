@@ -1,35 +1,25 @@
-import { Http } from "@/services/http";
+import { ApiConfig, ApiMethods, MethodProps } from "../types";
+import { endpoints } from "../../endpoints";
 
-export class PrimitiveServer {
-    private publicClient;
-    private privateClient;
+import http from "@/services/http";
 
-    constructor(private readonly http: Http) {
-        this.publicClient = this.http.PublicClient();
-        this.privateClient = this.http.PrivateClient();
-    }
-
-    public async breeds_image_random({ ...params }: any) {
-        const response = await this.publicClient.get('/breeds/image/random', {
-            params
-        });
-
-        return response.data;
-    }
-
-    public async breeds_list_all({ ...params }: any) {
-        const response = await this.publicClient.get('/breeds/list/all', {
-            params
-        });
-
-        return response.data;
-    }
-
-    public async breed_hound_images({ ...params }: any) {
-        const response = await this.publicClient.get('/breed/hound/images', {
-            params
-        });
-
-        return response.data;
-    }
+function createApiClass<T extends ApiConfig>(list: T) {
+    return class Api {
+        constructor() {
+            Object.keys(list).forEach((key) => {
+                (this as any)[key] = async (params?: any) => {
+                    return this.request(list[key].method, list[key].url, list[key].authenticated);
+                };
+            });
+        }
+    
+        async request(method: MethodProps, url: string, authenticated?: boolean): Promise<any> {
+            const client = authenticated ? http.privateClient() : http.publicClient();
+            const response = await client[method](url);
+            return response.data;
+        }
+    };
 }
+
+export type ApiInstanceType = ApiMethods<typeof endpoints>;
+export const PrimitiveServer = createApiClass(endpoints);
