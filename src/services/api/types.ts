@@ -8,6 +8,10 @@ export type ApiConfig = {
     };
 };
   
-export type ApiMethods<T extends ApiConfig> = {
+export type ServerApiMethods<T extends ApiConfig> = {
     [K in keyof T]: (params?: any) => Promise<any>;
+};
+
+export type ClientApiMethods<T extends ApiConfig, R> = {
+    [K in keyof T]: (params?: any) => R;
 };

@@ -1,4 +1,4 @@
-import { ApiConfig, ApiMethods, MethodProps } from "../types";
+import { ApiConfig, ServerApiMethods, MethodProps } from "../types";
 import { endpoints } from "../../endpoints";
 
 import http from "@/services/http";
@@ -21,5 +21,5 @@ function createApiClass<T extends ApiConfig>(list: T) {
     };
 }
 
-export type ApiInstanceType = ApiMethods<typeof endpoints>;
+export type ServerInstanceType = ServerApiMethods<typeof endpoints>;
 export const PrimitiveServer = createApiClass(endpoints);
