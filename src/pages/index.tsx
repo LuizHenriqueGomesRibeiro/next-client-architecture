@@ -11,8 +11,7 @@ export const getServerSideProps = async () => {
 
 export default function Home() {
   const { data, makeRequest, isSuccess, isLoading } = client.breeds_list_all();
-  
-  
+    
   
   useEffect(() => {
     const fetch = async () => {

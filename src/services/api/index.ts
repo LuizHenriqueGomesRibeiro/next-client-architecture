@@ -4,6 +4,6 @@ import { PrimitiveServer, ServerInstanceType } from "./server";
 //@ts-ignore
 const server: ServerInstanceType = new PrimitiveServer();
 //@ts-ignore
-const client = new PrimitiveClient();
+const client: ApiClientInstanceType = new PrimitiveClient();
 
 export { server, client };
