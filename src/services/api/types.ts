@@ -5,9 +5,11 @@ export type ApiConfig = {
         url: string;
         method: MethodProps;
         authenticated: boolean;
+        ARGS_PROPS?: unknown;
+        DATA_PROPS?: unknown;
     };
 };
 
 export type ServerApiMethods<T extends ApiConfig> = {
-    [K in keyof T]: (params?: any) => Promise<any>;
+    [K in keyof T]: (params?: T[K]['ARGS_PROPS']) => Promise<T[K]['DATA_PROPS']>;
 };

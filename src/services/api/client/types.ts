@@ -1,6 +1,6 @@
-export interface ApiClientResourcesProps {
+export interface ApiClientResourcesProps<T = any> {
     makeRequest: (props: any) => void,
-    data: Promise<any>,
+    data: Promise<T>,
     args: any,
     isLoading: boolean,
     isSuccess: boolean, 
