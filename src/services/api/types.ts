@@ -7,7 +7,7 @@ export type ApiConfig = {
         authenticated: boolean;
     };
 };
-  
+
 export type ServerApiMethods<T extends ApiConfig> = {
     [K in keyof T]: (params?: any) => Promise<any>;
 };
