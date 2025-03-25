@@ -11,8 +11,7 @@ function createPrimitiveClient<T extends ServerApiMethods<any>>(): new () => { [
             Object.keys(server).forEach((key) => {
                 (this as any)[key] = () => {
                     //@ts-ignore
-                    const resources = useServiceCall({ fn: server[key as keyof T] }); 
-                    return resources as ApiClientResourcesProps; 
+                    return useServiceCall({ fn: server[key as keyof T] }) as ApiClientResourcesProps; 
                 };
             });
         }
