@@ -10,10 +10,10 @@ export const getServerSideProps = async () => {
 }
 
 export default function Home() {
-  const { data, makeRequest, isSuccess, isLoading } = client.breeds_image_random();
-  console.log(data, isSuccess, isLoading);
+  const breeds = client.breeds_image_random();
+  console.log('breeds: ', breeds.data);
 
   return <>
-    <button className="bg-red-400 rounded-2xl px-2 py-1 cursor-pointer" onClick={makeRequest}>Nova requisição</button>
+    <button className="bg-red-400 rounded-2xl px-2 py-1 cursor-pointer" onClick={breeds.makeRequest}>Nova requisição</button>
   </>
 }
