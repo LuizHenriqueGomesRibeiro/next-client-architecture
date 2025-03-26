@@ -1,4 +1,4 @@
-import { client } from "@/services/api";
+import { client, server } from "@/services/api";
 
 export const getServerSideProps = async () => {
   return {
