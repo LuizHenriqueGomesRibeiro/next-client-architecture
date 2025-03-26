@@ -1,5 +1,5 @@
 interface BreedsImageRandomArgProps {
-
+    breed?: string,
 }
 
 interface BreedsImageRandomDataProps {

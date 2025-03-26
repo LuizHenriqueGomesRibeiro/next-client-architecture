@@ -21,7 +21,7 @@ function createPrimitiveClient<T extends ServerApiMethods<any>>(): new () => { [
 }
 
 export type ClientApiMethods<T extends ApiConfig> = {
-    [K in keyof T]: (params?: any) => ApiClientResourcesProps<T[K]["DATA_PROPS"]>;
+    [K in keyof T]: (params?: any) => ApiClientResourcesProps<T[K]["DATA_PROPS"], T[K]["ARGS_PROPS"]>;
 };
 
 export type ApiClientInstanceType = ClientApiMethods<typeof endpoints>;
