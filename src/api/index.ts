@@ -7,6 +7,21 @@ interface BreedsImageRandomDataProps {
     status: string,
 }
 
+interface EndpointBase {
+    url: string;
+    method: 'get' | 'post' | 'put' | 'delete';
+    authenticated: boolean;
+}
+
+type Endpoint<ArgsProps = unknown, DataProps = unknown> = EndpointBase & {
+    ARGS_PROPS?: ArgsProps;
+    DATA_PROPS?: DataProps;
+};
+
+type Endpoints = {
+    [key: string]: Endpoint;
+};
+
 export const api = {
     breeds_image_random: { 
         url: '/breeds/image/random', 
