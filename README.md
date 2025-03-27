@@ -1,40 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Next Client Architecture
 
-## Getting Started
+Next-client-architecture is a JavaScript library that quickly and automatically creates HTTP requests, aligning with the client-server architecture.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+With Next-client-architecture, the user can list their endpoints, automatically generating:
+
+- **`server` object**: A class object whose methods are used on the server side, such as in `getServerSideProps` and `getStaticProps`.
+- **`client` object**: A class object with the same methods as server, but with embedded business logic, for use on pages and components. These objects include:
+  - `makeRequest`: A usable function to trigger the client request.
+  - `data`: The response of the request.
+  - `args`: Parameters of the last request.
+  - `isLoading`: Boolean indicating whether the request is in progress.
+  - `isSuccess`: Boolean indicating whether the request was successfully completed.
+  - `isPaused`: Boolean indicating whether the request was paused.
+  - `isError`: Boolean indicating whether the request failed.
+  - `isIdle`: Boolean indicating whether the request is currently idle.
+
+## Usage Example
+
+### 1. Define Endpoints
+
+The API object is automatically created when implementing the library:
+
+```ts
+export const api = {} as const satisfies Record<string, ApiEndpoint>;
+```
+Now just include your own API:
+
+```ts
+interface BreedsImageRandomArgProps {
+    breed?: string;
+}
+
+interface BreedsImageRandomDataProps {
+    message: string;
+    status: string;
+}
+
+interface BreedsHoudImagesDataProps {
+    message: string[];
+    status: string;
+}
+
+export const api = {
+    breeds_image_random: {
+        url: '/breeds/image/random',
+        method: 'get',
+        authenticated: false,
+        ARGS_PROPS: {} as BreedsImageRandomArgProps,
+        DATA_PROPS: {} as BreedsImageRandomDataProps,
+    },
+    breed_hound_images: {
+        url: '/breed/hound/images',
+        method: 'get',
+        authenticated: false,
+        DATA_PROPS: {} as BreedsHoudImagesDataProps,
+    },
+} as const satisfies Record<string, ApiEndpoint>;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Server-Side Usage (`getServerSideProps`)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```ts
+import { server } from "@/services/api";
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+export const getServerSideProps = async () => {
+    const response = await server.breed_hound_images();
+    return {
+        props: {
+            listByBreed: response.message
+        },
+    };
+};
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### 3. Client-Side Usage (React Component)
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```tsx
+import { client } from "@/services/api";
 
-## Learn More
+interface PageProps {
+    listByBreed: string[];
+}
 
-To learn more about Next.js, take a look at the following resources:
+const Index = ({ listByBreed }: PageProps) => {
+    const { makeRequest, data, isSuccess } = client.breeds_image_random();
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+    return (
+        <div>
+            <div>
+                {isSuccess && <img src={data.message} alt="" />}
+                <button onClick={() => makeRequest()}>New request</button>
+            </div>
+            <div className="h-50 overflow-y-scroll">
+                {listByBreed.map((breed, index) => (
+                    <div key={index}>{breed}</div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+export default Index;
+```
 
-## Deploy on Vercel
+## Conclusion
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Next-client-architecture simplifies HTTP request implementation by automatically creating `client` and `server` objects, optimizing workflow, and reducing code complexity.
