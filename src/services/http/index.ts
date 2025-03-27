@@ -1,17 +1,18 @@
-import { AxiosInstance } from "axios";
 import { createConfiguredAxiosInstance } from "../axios";
+import { AxiosInstance } from "axios";
+import { BASE_URL } from "@/api";
 
 class Http {
     public publicClient() {
         return createConfiguredAxiosInstance({
-            url: "https://dog.ceo/api",
+            url: BASE_URL,
             withBearerToken: false,
         }) as AxiosInstance;
     }
   
     public privateClient() {
         return createConfiguredAxiosInstance({
-            url: "https://dog.ceo/api",
+            url: BASE_URL,
             withBearerToken: true,
         }) as AxiosInstance;
     }

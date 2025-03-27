@@ -14,6 +14,8 @@ interface BreedsHoudImagesDataProps {
     status: string
 }
 
+export const BASE_URL = "https://dog.ceo/api";
+
 export const api = {
     breeds_image_random: { 
         url: '/breeds/image/random', 
