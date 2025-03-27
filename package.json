@@ -1,6 +1,6 @@
 {
   "name": "@caucolum/next-client-architecture",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "lint": "next lint",
     "deploy": "npm version patch && npm publish"
   },
-    "publishConfig": {
+  "publishConfig": {
     "access": "public"
   },
   "dependencies": {
