@@ -1,6 +1,6 @@
 {
   "name": "@caucolum/next-client-architecture",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "private": false,
   "main": "src/services/api/index.ts",
   "scripts": {
