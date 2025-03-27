@@ -1,10 +1,4 @@
-interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
-    readonly url: string;
-    readonly method: "get" | "post" | "put" | "delete";
-    readonly authenticated: boolean;
-    readonly ARGS_PROPS?: ArgsProps;
-    readonly DATA_PROPS?: DataProps;
-}
+import { ApiEndpoint } from "@/services/endpoints/types";
 
 interface BreedsImageRandomArgProps {
     breed?: string,
@@ -16,6 +10,11 @@ interface BreedsImageRandomDataProps {
 }
 
 export const api = {
+    login: {
+        url: '/login',
+        method: 'post',
+        authenticated: false,
+    },
     breeds_image_random: { 
         url: '/breeds/image/random', 
         method: 'get', 
