@@ -2,8 +2,8 @@ import { ApiClientInstanceType, PrimitiveClient } from "./client";
 import { PrimitiveServer, ServerInstanceType } from "./server";
 
 //@ts-ignore
-const server: ServerInstanceType = new PrimitiveServer();
+const serverNextClientArchitecture: ServerInstanceType = new PrimitiveServer();
 //@ts-ignore
-const client: ApiClientInstanceType = new PrimitiveClient();
+const clientNextClientArchitecture: ApiClientInstanceType = new PrimitiveClient();
 
-export { server, client };
+export { serverNextClientArchitecture, clientNextClientArchitecture };

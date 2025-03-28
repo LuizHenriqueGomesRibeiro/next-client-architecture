@@ -1,4 +1,4 @@
-import { client, server } from "@/services/api"
+import { clientNextClientArchitecture } from "@/services/api";
 
 export const getServerSideProps = async () => {
   return {
@@ -9,7 +9,7 @@ export const getServerSideProps = async () => {
 }
 
 export default function Home() {
-  const response = client.requestc();
+  const response = clientNextClientArchitecture.requestc();
   console.log(response.data);
   return <>
     hello
