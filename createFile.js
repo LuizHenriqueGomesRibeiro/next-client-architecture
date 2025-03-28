@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const dirPath = path.resolve(process.cwd(), 'src', 'api');
+const projectRoot = path.resolve(require.main?.path || process.cwd(), '..', '..');
+const dirPath = path.join(projectRoot, 'src', 'api');
 const filePath = path.join(dirPath, 'index.ts');
 
 const content = `
