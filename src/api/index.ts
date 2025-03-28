@@ -1,7 +1,8 @@
-import { ApiEndpoint } from "@/services/endpoints/types";
 
-export const BASE_URL = "";
+    import { ApiEndpoint } from "@caucolum/next-client-architecture";
 
-export const api = {
-    
-} as const satisfies Record<string, ApiEndpoint>;
+    export const BASE_URL = "";
+
+    export const api = {
+        
+    } as const satisfies Record<string, ApiEndpoint>;
