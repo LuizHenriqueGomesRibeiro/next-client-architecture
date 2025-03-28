@@ -3,6 +3,7 @@
   "version": "0.1.29",
   "private": false,
   "main": "src/services/api/index.ts",
+  "type": "commonjs",
   "scripts": {
     "dev": "next dev",
     "build": "webpack --mode production",

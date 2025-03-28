@@ -1,4 +1,4 @@
-import { clientNextClientArchitecture } from "@/services/api";
+import { clientNextClientArchitecture } from "../services/api";
 
 export const getServerSideProps = async () => {
     return {

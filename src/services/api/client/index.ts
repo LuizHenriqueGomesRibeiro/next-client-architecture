@@ -1,9 +1,9 @@
-import useServiceCall from "@/services/useServiceCall";
-
 import { ApiConfig, ServerApiMethods } from "../types";
 import { serverNextClientArchitecture } from "..";
 import { ApiClientResourcesProps } from "./types";
-import { endpoints } from "@/services/endpoints";
+import { endpoints } from "../../endpoints";
+
+import useServiceCall from "../../useServiceCall";
 
 function createPrimitiveClient<T extends ServerApiMethods<any>>(): new () => { [K in keyof T]: () => any } {
     class PrimitiveClient {
