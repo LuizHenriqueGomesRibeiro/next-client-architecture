@@ -3,12 +3,12 @@ import useServiceCall from "@/services/useServiceCall";
 import { ApiConfig, ServerApiMethods } from "../types";
 import { ApiClientResourcesProps } from "./types";
 import { endpoints } from "@/services/endpoints";
-import { server } from "..";
+import { serverNextArchitecture } from "..";
 
 function createPrimitiveClient<T extends ServerApiMethods<any>>(): new () => { [K in keyof T]: () => any } {
     class PrimitiveClient {
         constructor() {
-            Object.keys(server).forEach((key) => {
+            Object.keys(serverNextArchitecture).forEach((key) => {
                 (this as any)[key] = () => {
                     //@ts-ignore
                     return useServiceCall({ fn: server[key as keyof T] }) as ApiClientResourcesProps; 
