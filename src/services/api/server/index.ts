@@ -1,7 +1,7 @@
 import { ApiConfig, MethodProps, ServerApiMethods } from "../types";
 import { endpoints } from "../../endpoints";
 
-import http from "@/services/http";
+import http from "../../http";
 
 function createApiClass<T extends ApiConfig>(list: T) {
     return class Api {
