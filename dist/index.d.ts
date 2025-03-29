@@ -23,18 +23,7 @@ interface ApiClientResourcesProps<T = any, K = any> {
     isIdle: boolean;
 }
 
-declare const endpoints: {
-    readonly breeds_image_random: {
-        readonly url: "breeds/image/random";
-        readonly authenticated: false;
-        readonly method: "get";
-    };
-    readonly breed_hound_images: {
-        readonly url: "breed/hound/images";
-        readonly authenticated: false;
-        readonly method: "get";
-    };
-};
+declare const endpoints: {};
 
 type ClientApiMethods<T extends ApiConfig> = {
     [K in keyof T]: (params?: any) => ApiClientResourcesProps<T[K]["DATA_PROPS"], T[K]["ARGS_PROPS"]>;
