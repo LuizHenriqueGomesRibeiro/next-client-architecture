@@ -1,40 +1,25 @@
 {
   "name": "@caucolum/next-client-architecture",
-  "version": "0.1.36",
-  "private": false,
-  "main": "src/services/api/index.ts",
-  "type": "commonjs",
+  "version": "1.0.12",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "next dev",
-    "build": "webpack --config webpack.config.js --mode production",
-    "start": "next start",
-    "lint": "next lint",
-    "deploy": "npm version patch && npm publish"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npm version patch && npm publish",
+    "build": "tsup"
   },
-  "publishConfig": {
-    "access": "public"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tslib": "^2.8.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@babel/preset-typescript": "^7.27.0",
     "axios": "^1.8.4",
-    "next": "15.2.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "react-query": "^3.39.3"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/preset-env": "^7.26.9",
-    "@babel/preset-react": "^7.26.3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.17.28",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19",
-    "babel-loader": "^10.0.0",
-    "tailwindcss": "^4",
-    "ts-loader": "^9.5.2",
-    "typescript": "^5.8.2",
-    "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1"
   }
 }
