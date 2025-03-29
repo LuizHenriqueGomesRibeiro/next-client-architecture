@@ -43,7 +43,14 @@ type ApiClientInstanceType = ClientApiMethods<typeof endpoints>;
 
 type ServerInstanceType = ServerApiMethods<typeof endpoints>;
 
+interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
+    readonly url: string;
+    readonly method: MethodProps;
+    readonly authenticated: boolean;
+    readonly ARGS_PROPS?: ArgsProps;
+    readonly DATA_PROPS?: DataProps;
+}
 declare const serverNextClientArchitecture: ServerInstanceType;
 declare const clientNextClientArchitecture: ApiClientInstanceType;
 
-export { clientNextClientArchitecture, serverNextClientArchitecture };
+export { type ApiEndpoint, clientNextClientArchitecture, serverNextClientArchitecture };
