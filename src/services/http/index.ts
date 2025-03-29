@@ -1,6 +1,6 @@
 import { createConfiguredAxiosInstance } from "../axios";
+import { BASE_URL } from "../../../../../../src/api";
 import { AxiosInstance } from "axios";
-import { BASE_URL } from "../../api";
 
 class Http {
     public publicClient() {
