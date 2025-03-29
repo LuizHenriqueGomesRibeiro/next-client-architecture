@@ -9,8 +9,7 @@
     "build": "webpack --mode production",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm version patch && npm publish",
-    "postinstall": "node createFile.js"
+    "deploy": "npm version patch && npm publish"
   },
   "publishConfig": {
     "access": "public"
