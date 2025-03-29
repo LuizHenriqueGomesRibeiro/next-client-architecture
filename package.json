@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "next dev",
-    "build": "webpack --mode production",
+    "build": "webpack --config webpack.config.js --mode production",
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm version patch && npm publish"
