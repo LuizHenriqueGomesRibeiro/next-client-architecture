@@ -9,10 +9,7 @@ export const getServerSideProps = async () => {
 }
 
 export default function Home() {
-    const response = clientNextClientArchitecture.requestc();
-    console.log(response.data);
     return <>
         hello
-        <button onClick={() => response.makeRequest()} >request</button>
     </>
 }
