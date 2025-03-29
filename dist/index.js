@@ -81,20 +81,8 @@ function createPrimitiveClient() {
 }
 var PrimitiveClient = createPrimitiveClient();
 
-// src/api/index.ts
-var BASE_URL = "https://dog.ceo/api";
-var api = {
-  breeds_image_random: {
-    url: "breeds/image/random",
-    authenticated: false,
-    method: "get"
-  },
-  breed_hound_images: {
-    url: "breed/hound/images",
-    authenticated: false,
-    method: "get"
-  }
-};
+// ../../../src/api/index.ts
+var api = {};
 
 // src/services/endpoints/index.ts
 var endpoints = api;
@@ -127,6 +115,9 @@ var createConfiguredAxiosInstance = (options) => {
   );
   return axiosInstance;
 };
+
+// src/api/index.ts
+var BASE_URL = "https://dog.ceo/api";
 
 // src/services/http/index.ts
 var Http = class {
