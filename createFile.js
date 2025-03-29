@@ -12,7 +12,7 @@ const filePath = path.join(dirPath, 'index.ts');
 const content = `
 import { ApiEndpoint } from "@caucolum/next-client-architecture";
 
-export const BASE_URL = ""https://dog.ceo/api";
+export const BASE_URL = "https://dog.ceo/api";
 
 export const api = {
     breeds_image_random: {
