@@ -82,6 +82,7 @@ function createPrimitiveClient() {
 var PrimitiveClient = createPrimitiveClient();
 
 // src/api/index.ts
+var BASE_URL = "https://dog.ceo/api";
 var api = {
   breeds_image_random: {
     url: "breeds/image/random",
@@ -126,9 +127,6 @@ var createConfiguredAxiosInstance = (options) => {
   );
   return axiosInstance;
 };
-
-// ../../../src/api/index.ts
-var BASE_URL = "";
 
 // src/services/http/index.ts
 var Http = class {
