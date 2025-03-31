@@ -49,6 +49,7 @@ var http = new Http();
 var http_default = http;
 
 // src/index.ts
+var BASE_URL2 = "";
 var api = {};
 function createApiClass(list) {
   return class Api {
@@ -66,11 +67,13 @@ function createApiClass(list) {
     }
   };
 }
-function createServerNextArchitecture() {
-  const PrimitiveServer = createApiClass(api);
+function createServerNextArchitecture(list) {
+  const PrimitiveServer = createApiClass(list);
   const server = new PrimitiveServer();
   return server;
 }
 export {
+  BASE_URL2 as BASE_URL,
+  api,
   createServerNextArchitecture
 };

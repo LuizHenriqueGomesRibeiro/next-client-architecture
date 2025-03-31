@@ -1,10 +1,17 @@
 import { ApiConfig, MethodProps, ServerApiMethods } from "./api/types";
-import { ApiEndpoint } from "./dw";
 import http from "./http";
 
-const BASE_URL = "";
+interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
+    readonly url: string;
+    readonly method: MethodProps;
+    readonly authenticated: boolean;
+    readonly ARGS_PROPS?: ArgsProps;
+    readonly DATA_PROPS?: DataProps;
+}
 
-const api = {
+export const BASE_URL = "";
+
+export const api = {
     
 } as const satisfies Record<string, ApiEndpoint>;
 
@@ -26,9 +33,10 @@ function createApiClass<T extends ApiConfig>(list: T) {
     };
 }
 
-function createServerNextArchitecture() {
-    const PrimitiveServer = createApiClass(api);
-    const server: ServerApiMethods<typeof api> = new PrimitiveServer();
+function createServerNextArchitecture<T extends ApiConfig>(list: T) {
+    const PrimitiveServer = createApiClass(list);
+    //@ts-ignore
+    const server: ServerApiMethods<typeof list> = new PrimitiveServer();
     return server;
 }
 

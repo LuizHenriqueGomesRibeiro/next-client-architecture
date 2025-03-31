@@ -30,6 +30,8 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
+  BASE_URL: () => BASE_URL2,
+  api: () => api,
   createServerNextArchitecture: () => createServerNextArchitecture
 });
 module.exports = __toCommonJS(index_exports);
@@ -85,6 +87,7 @@ var http = new Http();
 var http_default = http;
 
 // src/index.ts
+var BASE_URL2 = "";
 var api = {};
 function createApiClass(list) {
   return class Api {
@@ -102,12 +105,14 @@ function createApiClass(list) {
     }
   };
 }
-function createServerNextArchitecture() {
-  const PrimitiveServer = createApiClass(api);
+function createServerNextArchitecture(list) {
+  const PrimitiveServer = createApiClass(list);
   const server = new PrimitiveServer();
   return server;
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  BASE_URL,
+  api,
   createServerNextArchitecture
 });
