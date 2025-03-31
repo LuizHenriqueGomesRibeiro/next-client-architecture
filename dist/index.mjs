@@ -1,56 +1,3 @@
-// src/useServiceCall/index.ts
-import { useMutation } from "react-query";
-var useServiceCall = ({ fn }) => {
-  const {
-    mutateAsync,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle,
-    data
-  } = useMutation(async (...args) => {
-    const response = await fn(...args);
-    return response;
-  });
-  const makeRequest = (props) => {
-    mutateAsync(props);
-  };
-  return {
-    makeRequest,
-    data,
-    args: data?.args,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle
-  };
-};
-var useServiceCall_default = useServiceCall;
-
-// src/api/client/index.ts
-function createPrimitiveClient() {
-  class PrimitiveClient2 {
-    constructor() {
-      Object.keys(serverNextClientArchitecture).forEach((key) => {
-        this[key] = () => {
-          return useServiceCall_default({ fn: serverNextClientArchitecture[key] });
-        };
-      });
-    }
-  }
-  return PrimitiveClient2;
-}
-var PrimitiveClient = createPrimitiveClient();
-
-// ../../../src/api/index.ts
-var BASE_URL = "";
-var api = {};
-
-// src/endpoints/index.ts
-var endpoints = api;
-
 // src/axios/index.ts
 import axios from "axios";
 var createConfiguredAxiosInstance = (options) => {
@@ -80,6 +27,9 @@ var createConfiguredAxiosInstance = (options) => {
   return axiosInstance;
 };
 
+// ../../../src/api/index.ts
+var BASE_URL = "";
+
 // src/http/index.ts
 var Http = class {
   publicClient() {
@@ -98,7 +48,8 @@ var Http = class {
 var http = new Http();
 var http_default = http;
 
-// src/api/server/index.ts
+// src/index.ts
+var api = {};
 function createApiClass(list) {
   return class Api {
     constructor() {
@@ -115,12 +66,11 @@ function createApiClass(list) {
     }
   };
 }
-var PrimitiveServer = createApiClass(endpoints);
-
-// src/index.ts
-var serverNextClientArchitecture = new PrimitiveServer();
-var clientNextClientArchitecture = new PrimitiveClient();
+function createServerNextArchitecture() {
+  const PrimitiveServer = createApiClass(api);
+  const server = new PrimitiveServer();
+  return server;
+}
 export {
-  clientNextClientArchitecture,
-  serverNextClientArchitecture
+  createServerNextArchitecture
 };
