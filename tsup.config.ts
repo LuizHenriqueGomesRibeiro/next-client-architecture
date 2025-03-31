@@ -1,7 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entryPoints: ["./src/index.ts"],
-  format: ["cjs", "esm"],
-  dts: true,
+  entry: ["src/index.ts"],
+  dts: true, // Gera arquivos de definição de tipos
+  sourcemap: true,
+  format: ["esm", "cjs"],
+  clean: true,
+  outDir: "dist",
+  tsconfig: "./tsconfig.json",
 });

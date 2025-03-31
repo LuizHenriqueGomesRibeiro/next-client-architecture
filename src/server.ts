@@ -1,7 +1,7 @@
-import { ApiConfig, MethodProps, ServerApiMethods } from "../../types";
-import { endpoints } from "../../endpoints";
+import { ApiConfig, MethodProps, ServerApiMethods } from "@caucolum/next-client-architecture/src/types";
+import { endpoints } from "@caucolum/next-client-architecture/src/endpoints";
 
-import http from "../../http";
+import http from "@caucolum/next-client-architecture/src/http";
 
 function createApiClass<T extends ApiConfig>(list: T) {
     return class Api {

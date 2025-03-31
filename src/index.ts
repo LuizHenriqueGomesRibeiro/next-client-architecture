@@ -1,6 +1,7 @@
-import { ApiClientInstanceType, PrimitiveClient } from "./api/client";
-import { PrimitiveServer, ServerInstanceType } from "./api/server";
-import { MethodProps } from "./types";
+import { ApiClientInstanceType, PrimitiveClient } from "@caucolum/next-client-architecture/src/client";
+import { PrimitiveServer, ServerInstanceType } from "@caucolum/next-client-architecture/src/server";
+
+export type MethodProps = 'get' | 'post' | 'put' | 'delete';
 
 export interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly url: string;

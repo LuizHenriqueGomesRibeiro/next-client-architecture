@@ -1,4 +1,4 @@
-export type MethodProps = 'get' | 'post' | 'put' | 'delete';
+import { MethodProps } from "@/index";
 
 export interface ApiClientResourcesProps<T = any, K = any> {
     makeRequest: (props?: K) => void,

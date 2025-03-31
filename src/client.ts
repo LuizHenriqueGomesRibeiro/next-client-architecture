@@ -1,8 +1,8 @@
-import { ApiClientResourcesProps, ApiConfig, ServerApiMethods } from "../../types";
-import { serverNextClientArchitecture } from "../..";
-import { endpoints } from "../../endpoints";
+import { ApiClientResourcesProps, ApiConfig, ServerApiMethods } from "@caucolum/next-client-architecture/src/types";
+import { serverNextClientArchitecture } from "@caucolum/next-client-architecture/src";
+import { endpoints } from "@caucolum/next-client-architecture/src/endpoints";
 
-import useServiceCall from "../../useServiceCall";
+import useServiceCall from "@caucolum/next-client-architecture/src/useServiceCall";
 
 function createPrimitiveClient<T extends ServerApiMethods<any>>(): new () => { [K in keyof T]: () => any } {
     class PrimitiveClient {
