@@ -10,22 +10,26 @@ const dirPath = path.join(projectRoot, 'src', 'api');
 const filePath = path.join(dirPath, 'index.ts');
 
 const content = `
-import { ApiEndpoint } from "@caucolum/next-client-architecture";
+import { createServerNextArchitecture, ApiEndpoint } from "@caucolum/next-client-architecture";
 
-export const BASE_URL = "https://dog.ceo/api";
-
-export const api = {
+const api = {
     breeds_image_random: {
-        url: "breeds/image/random",
+        url: "https://dog.ceo/api/breeds/image/random",
         authenticated: false,
-        method: 'get'
+        method: 'get',
     },
     breed_hound_images: {
-        url: "breed/hound/images",
+        url: "https://dog.ceo/api/breed/hound/images",
         authenticated: false,
-        method: 'get'
+        method: 'get',
     },
 } as const satisfies Record<string, ApiEndpoint>;
+
+const nextArchitectureServer = createServerNextArchitecture(api);
+
+export {
+    nextArchitectureServer
+}
 `;
 
 if (!fs.existsSync(dirPath)) {

@@ -1,7 +1,7 @@
 import { ApiConfig, MethodProps, ServerApiMethods } from "./api/types";
 import http from "./http";
 
-interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
+export interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly url: string;
     readonly method: MethodProps;
     readonly authenticated: boolean;
