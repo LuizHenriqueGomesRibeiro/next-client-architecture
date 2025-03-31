@@ -1,6 +1,6 @@
-import { ApiClientInstanceType, PrimitiveClient } from "./api/client";
-import { PrimitiveServer, ServerInstanceType } from "./api/server";
-import { MethodProps } from "./api/types";
+import { ApiClientInstanceType, PrimitiveClient } from "./client";
+import { PrimitiveServer, ServerInstanceType } from "./server";
+import { MethodProps } from "./types";
 
 export interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly url: string;
