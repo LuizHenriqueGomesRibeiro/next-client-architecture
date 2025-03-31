@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "dist",            // Saída para a pasta "dist"
-    "declaration": true,         // Gerar arquivos de definição de tipos
+    "outDir": "dist",
+    "declaration": true,
     "declarationMap": true,
     "module": "ESNext",
     "moduleResolution": "Node",
