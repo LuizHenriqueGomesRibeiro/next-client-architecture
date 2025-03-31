@@ -1,4 +1,4 @@
-// src/services/useServiceCall/index.ts
+// src/useServiceCall/index.ts
 import { useMutation } from "react-query";
 var useServiceCall = ({ fn }) => {
   const {
@@ -29,7 +29,7 @@ var useServiceCall = ({ fn }) => {
 };
 var useServiceCall_default = useServiceCall;
 
-// src/services/api/client/index.ts
+// src/api/client/index.ts
 function createPrimitiveClient() {
   class PrimitiveClient2 {
     constructor() {
@@ -44,25 +44,14 @@ function createPrimitiveClient() {
 }
 var PrimitiveClient = createPrimitiveClient();
 
-// src/api/index.ts
-var BASE_URL = "https://dog.ceo/api";
-var api = {
-  breeds_image_random: {
-    url: "breeds/image/random",
-    authenticated: false,
-    method: "get"
-  },
-  breed_hound_images: {
-    url: "breed/hound/images",
-    authenticated: false,
-    method: "get"
-  }
-};
+// ../../../src/api/index.ts
+var BASE_URL = "";
+var api = {};
 
-// src/services/endpoints/index.ts
+// src/endpoints/index.ts
 var endpoints = api;
 
-// src/services/axios/index.ts
+// src/axios/index.ts
 import axios from "axios";
 var createConfiguredAxiosInstance = (options) => {
   const axiosInstance = axios.create({
@@ -91,7 +80,7 @@ var createConfiguredAxiosInstance = (options) => {
   return axiosInstance;
 };
 
-// src/services/http/index.ts
+// src/http/index.ts
 var Http = class {
   publicClient() {
     return createConfiguredAxiosInstance({
@@ -109,7 +98,7 @@ var Http = class {
 var http = new Http();
 var http_default = http;
 
-// src/services/api/server/index.ts
+// src/api/server/index.ts
 function createApiClass(list) {
   return class Api {
     constructor() {
