@@ -1,5 +1,16 @@
 export type MethodProps = 'get' | 'post' | 'put' | 'delete';
 
+export interface ApiClientResourcesProps<T = any, K = any> {
+    makeRequest: (props?: K) => void,
+    data: T,
+    args: K,
+    isLoading: boolean,
+    isSuccess: boolean, 
+    isPaused: boolean,
+    isError: boolean,
+    isIdle: boolean,
+}
+
 export type ApiConfig = {
     [key: string]: {
         url: string;
