@@ -1,3 +1,34 @@
+// src/useServiceCall/index.ts
+import { useMutation } from "react-query";
+var useServiceCall = ({ fn }) => {
+  const {
+    mutateAsync,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle,
+    data
+  } = useMutation(async (...args) => {
+    const response = await fn(...args);
+    return response;
+  });
+  const makeRequest = (props) => {
+    mutateAsync(props);
+  };
+  return {
+    makeRequest,
+    data,
+    args: data?.args,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle
+  };
+};
+var useServiceCall_default = useServiceCall;
+
 // src/axios/index.ts
 import axios from "axios";
 var createConfiguredAxiosInstance = (options) => {
@@ -48,37 +79,6 @@ var Http = class {
 var http = new Http();
 var http_default = http;
 
-// src/useServiceCall/index.ts
-import { useMutation } from "react-query";
-var useServiceCall = ({ fn }) => {
-  const {
-    mutateAsync,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle,
-    data
-  } = useMutation(async (...args) => {
-    const response = await fn(...args);
-    return response;
-  });
-  const makeRequest = (props) => {
-    mutateAsync(props);
-  };
-  return {
-    makeRequest,
-    data,
-    args: data?.args,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle
-  };
-};
-var useServiceCall_default = useServiceCall;
-
 // src/index.ts
 function createApiClass(list) {
   return class Api {
@@ -101,7 +101,7 @@ function createPrimitiveClient(serverApi) {
     constructor() {
       Object.keys(serverApi).forEach((key) => {
         this[key] = () => {
-          return useServiceCall_default({ fn: serverApi[key] });
+          return () => useServiceCall_default({ fn: serverApi[key] });
         };
       });
     }

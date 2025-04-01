@@ -35,6 +35,37 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
+// src/useServiceCall/index.ts
+var import_react_query = require("react-query");
+var useServiceCall = ({ fn }) => {
+  const {
+    mutateAsync,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle,
+    data
+  } = (0, import_react_query.useMutation)(async (...args) => {
+    const response = await fn(...args);
+    return response;
+  });
+  const makeRequest = (props) => {
+    mutateAsync(props);
+  };
+  return {
+    makeRequest,
+    data,
+    args: data?.args,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle
+  };
+};
+var useServiceCall_default = useServiceCall;
+
 // src/axios/index.ts
 var import_axios = __toESM(require("axios"));
 var createConfiguredAxiosInstance = (options) => {
@@ -85,37 +116,6 @@ var Http = class {
 var http = new Http();
 var http_default = http;
 
-// src/useServiceCall/index.ts
-var import_react_query = require("react-query");
-var useServiceCall = ({ fn }) => {
-  const {
-    mutateAsync,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle,
-    data
-  } = (0, import_react_query.useMutation)(async (...args) => {
-    const response = await fn(...args);
-    return response;
-  });
-  const makeRequest = (props) => {
-    mutateAsync(props);
-  };
-  return {
-    makeRequest,
-    data,
-    args: data?.args,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle
-  };
-};
-var useServiceCall_default = useServiceCall;
-
 // src/index.ts
 function createApiClass(list) {
   return class Api {
@@ -138,7 +138,7 @@ function createPrimitiveClient(serverApi) {
     constructor() {
       Object.keys(serverApi).forEach((key) => {
         this[key] = () => {
-          return useServiceCall_default({ fn: serverApi[key] });
+          return () => useServiceCall_default({ fn: serverApi[key] });
         };
       });
     }
