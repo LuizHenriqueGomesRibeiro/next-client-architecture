@@ -1,5 +1,7 @@
+import { ApiClientResourcesProps } from "./api/client/types";
 import { ApiConfig, ClientApiMethods, MethodProps, ServerApiMethods } from "./api/types";
 import http from "./http";
+import useServiceCall from "./useServiceCall";
 
 export interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly url: string;
@@ -32,7 +34,6 @@ function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T): n
         constructor() {
             Object.keys(serverApi).forEach((key) => {
                 (this as any)[key] = () => {
-                    //@ts-ignore
                     return useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps; 
                 };
             });
