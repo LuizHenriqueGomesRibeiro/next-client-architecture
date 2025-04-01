@@ -2283,15 +2283,13 @@ function createApiClass(list) {
   };
 }
 function createPrimitiveClient(serverApi) {
-  return function useClient() {
-    return (0, import_react.useMemo)(() => {
-      const client = {};
-      Object.keys(serverApi).forEach((key) => {
-        client[key] = () => useServiceCall_default({ fn: serverApi[key] });
-      });
-      return client;
-    }, [serverApi]);
-  };
+  return (0, import_react.useMemo)(() => {
+    const client = {};
+    Object.keys(serverApi).forEach((key) => {
+      client[key] = () => useServiceCall_default({ fn: serverApi[key] });
+    });
+    return client;
+  }, [serverApi]);
 }
 function createServerNextArchitecture(list) {
   const PrimitiveServer = createApiClass(list);
@@ -2299,8 +2297,7 @@ function createServerNextArchitecture(list) {
   return server;
 }
 function createClientNextArchitecture(serverApi, list) {
-  const usePrimitiveClient = createPrimitiveClient(serverApi);
-  const client = usePrimitiveClient();
+  const client = createPrimitiveClient(serverApi);
   return client;
 }
 export {

@@ -31,18 +31,17 @@ function createApiClass<T extends ApiConfig>(list: T) {
 }
 
 function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T) {
-    return function useClient() {
-        return useMemo(() => {
-            const client = {} as { [K in keyof T]: () => any };
+    return useMemo(() => {
+        const client = {} as { [K in keyof T]: () => any };
 
-            Object.keys(serverApi).forEach((key) => {
-                client[key as keyof T] = () => useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
-            });
+        Object.keys(serverApi).forEach((key) => {
+            client[key as keyof T] = () => useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
+        });
 
-            return client;
-        }, [serverApi]);
-    };
+        return client;
+    }, [serverApi]);
 }
+
 
 
 function createServerNextArchitecture<T extends ApiConfig>(list: T) {
@@ -53,8 +52,7 @@ function createServerNextArchitecture<T extends ApiConfig>(list: T) {
 }
 
 function createClientNextArchitecture<T extends ServerApiMethods<any>, K extends ApiConfig>(serverApi: T, list: K) {
-    const usePrimitiveClient = createPrimitiveClient(serverApi);
-    const client: ClientApiMethods<typeof list> = usePrimitiveClient();
+    const client: ClientApiMethods<typeof list> = createPrimitiveClient(serverApi);
     return client;
 }
 
