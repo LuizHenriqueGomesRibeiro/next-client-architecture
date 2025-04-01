@@ -101,7 +101,7 @@ function createPrimitiveClient(serverApi) {
     constructor() {
       Object.keys(serverApi).forEach((key) => {
         this[key] = () => {
-          return () => useServiceCall_default({ fn: serverApi[key] });
+          return useServiceCall_default({ fn: serverApi[key] });
         };
       });
     }
