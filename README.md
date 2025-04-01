@@ -24,9 +24,17 @@ With Next-client-architecture, the user can list their endpoints, automatically 
 The API object is automatically created when implementing the library:
 
 ```ts
-export const BASE_URL = "";
+import { createServerNextArchitecture, ApiEndpoint } from "@caucolum/next-client-architecture";
 
-export const api = {} as const satisfies Record<string, ApiEndpoint>;
+const api = {
+
+} as const satisfies Record<string, ApiEndpoint>;
+
+const nextArchitectureServer = createServerNextArchitecture(api);
+
+export {
+    nextArchitectureServer
+}
 ```
 Now just include your own API:
 
@@ -45,9 +53,7 @@ interface BreedsHoudImagesDataProps {
     status: string;
 }
 
-export const BASE_URL = "https://dog.ceo/api";
-
-export const api = {
+const api = {
     breeds_image_random: {
         url: '/breeds/image/random',
         method: 'get',
@@ -62,37 +68,21 @@ export const api = {
         DATA_PROPS: {} as BreedsHoudImagesDataProps,
     },
 } as const satisfies Record<string, ApiEndpoint>;
-```
 
-or
+const nextArchitectureServer = createServerNextArchitecture(api);
 
-```ts
-    export const BASE_URL = "";
-    
-    export const api = {
-        breeds_image_random: { 
-            url: 'https://dog.ceo/api/breeds/image/random', 
-            method: 'get', 
-            authenticated: false, 
-            ARGS_PROPS: {} as BreedsImageRandomArgProps,  
-            DATA_PROPS: {} as BreedsImageRandomDataProps,
-        },
-        breed_hound_images: { 
-            url: 'https://dog.ceo/api/breed/hound/images', 
-            method: 'get', 
-            authenticated: false, 
-            DATA_PROPS: {} as BreedsHoudImagesDataProps,
-        },
-    } as const satisfies Record<string, ApiEndpoint>;
+export {
+    nextArchitectureServer
+}
 ```
 
 ### 2. Server-Side Usage (`getServerSideProps`)
 
 ```ts
-import { server } from "@/services/api";
+import { nextArchitectureServer } from "@/api";
 
 export const getServerSideProps = async () => {
-    const response = await server.breed_hound_images();
+    const response = await nextArchitectureServer.breed_hound_images();
     return {
         props: {
             listByBreed: response.message
