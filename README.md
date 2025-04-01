@@ -39,6 +39,8 @@ export {
 Now just include your own API:
 
 ```ts
+import { createServerNextArchitecture, ApiEndpoint } from "@caucolum/next-client-architecture";
+
 interface BreedsImageRandomArgProps {
     breed?: string;
 }
