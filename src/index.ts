@@ -2,7 +2,6 @@ import { ApiConfig, ClientApiMethods, MethodProps, ServerApiMethods } from "./ap
 import { ApiClientResourcesProps } from "./api/client/types";
 import useServiceCall from "./useServiceCall";
 import http from "./http";
-import { useMemo } from "react";
 
 export interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly url: string;
@@ -39,6 +38,7 @@ function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T) {
 
     return client;
 }
+
 
 function createServerNextArchitecture<T extends ApiConfig>(list: T) {
     const PrimitiveServer = createApiClass(list);
