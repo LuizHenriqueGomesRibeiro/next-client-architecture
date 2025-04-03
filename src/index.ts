@@ -29,18 +29,14 @@ function createApiClass<T extends ApiConfig>(list: T) {
     };
 }
 
-function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T): new () => { [K in keyof T]: () => any } {
-    class PrimitiveClient {
-        constructor() {
-            Object.keys(serverApi).forEach((key) => {
-                (this as any)[key] = () => {
-                    return useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps; 
-                };
-            });
-        }
-    }
+function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T) {
+    const client = {} as { [K in keyof T]: () => any };
 
-    return PrimitiveClient as new () => { [K in keyof T]: () => any };
+    Object.keys(serverApi).forEach((key) => {
+        client[key as keyof T] = () => useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
+    });
+
+    return client;
 }
 
 
