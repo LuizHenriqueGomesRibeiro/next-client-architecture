@@ -31,15 +31,16 @@ function createApiClass<T extends ApiConfig>(list: T) {
 }
 
 function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T) {
-    const client = {} as { [K in keyof T]: () => any };
+    const client = {} as { [K in keyof T]: () => ApiClientResourcesProps };
 
     Object.keys(serverApi).forEach((key) => {
-        client[key as keyof T] = () => useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
+        client[key as keyof T] = () => {
+            return useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
+        };
     });
 
     return client;
 }
-
 
 function createServerNextArchitecture<T extends ApiConfig>(list: T) {
     const PrimitiveServer = createApiClass(list);

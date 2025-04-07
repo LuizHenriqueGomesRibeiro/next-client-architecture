@@ -99,7 +99,9 @@ function createApiClass(list) {
 function createPrimitiveClient(serverApi) {
   const client = {};
   Object.keys(serverApi).forEach((key) => {
-    client[key] = () => useServiceCall_default({ fn: serverApi[key] });
+    client[key] = () => {
+      return useServiceCall_default({ fn: serverApi[key] });
+    };
   });
   return client;
 }
