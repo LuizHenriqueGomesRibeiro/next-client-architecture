@@ -1,6 +1,6 @@
 {
   "name": "@caucolum/next-client-architecture",
-  "version": "1.0.74",
+  "version": "1.0.80",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
