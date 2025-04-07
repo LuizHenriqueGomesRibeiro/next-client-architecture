@@ -1,31 +1,24 @@
 // src/useServiceCall/index.ts
-import { useMutation } from "react-query";
+import { useState } from "react";
 var useServiceCall = ({ fn }) => {
-  const {
-    mutateAsync,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle,
-    data
-  } = useMutation(async (...args) => {
-    const response = await fn(...args);
-    return response;
-  });
-  const makeRequest = (props) => {
-    mutateAsync(props);
+  const [status, setStatus] = useState("idle");
+  const [args, setArgs] = useState(null);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
+  const makeRequest = async (...args2) => {
+    setStatus("loading");
+    setArgs(args2);
+    try {
+      const response = await fn(...args2);
+      setData(response);
+      setStatus("loaded");
+      return response;
+    } catch (err) {
+      setStatus("error");
+      setError(err);
+    }
   };
-  return {
-    makeRequest,
-    data,
-    args: data?.args,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle
-  };
+  return { data, status, error, args, makeRequest };
 };
 var useServiceCall_default = useServiceCall;
 
@@ -58,20 +51,17 @@ var createConfiguredAxiosInstance = (options) => {
   return axiosInstance;
 };
 
-// ../../../src/api/index.ts
-var BASE_URL = "";
-
 // src/http/index.ts
 var Http = class {
   publicClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: false
     });
   }
   privateClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: true
     });
   }

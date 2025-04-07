@@ -1,3 +1,5 @@
+import { UseServiceCallStatusProps } from "../useServiceCall";
+
 export type MethodProps = 'get' | 'post' | 'put' | 'delete';
 
 export type ApiConfig = {
@@ -12,13 +14,9 @@ export type ApiConfig = {
 
 export interface ApiClientResourcesProps<T = any, K = any> {
     makeRequest: (props?: K) => void,
+    status: UseServiceCallStatusProps
     data: T,
     args: K,
-    isLoading: boolean,
-    isSuccess: boolean, 
-    isPaused: boolean,
-    isError: boolean,
-    isIdle: boolean,
 }
 
 export type ServerApiMethods<T extends ApiConfig> = {

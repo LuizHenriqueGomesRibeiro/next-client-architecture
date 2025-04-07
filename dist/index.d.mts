@@ -1,3 +1,5 @@
+type UseServiceCallStatusProps = 'idle' | 'loading' | 'loaded' | 'error';
+
 type MethodProps = 'get' | 'post' | 'put' | 'delete';
 type ApiConfig = {
     [key: string]: {
@@ -10,13 +12,9 @@ type ApiConfig = {
 };
 interface ApiClientResourcesProps<T = any, K = any> {
     makeRequest: (props?: K) => void;
+    status: UseServiceCallStatusProps;
     data: T;
     args: K;
-    isLoading: boolean;
-    isSuccess: boolean;
-    isPaused: boolean;
-    isError: boolean;
-    isIdle: boolean;
 }
 type ServerApiMethods<T extends ApiConfig> = {
     [K in keyof T]: (params?: T[K]['ARGS_PROPS']) => Promise<T[K]['DATA_PROPS']>;
