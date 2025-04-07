@@ -30,11 +30,41 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  BASE_URL: () => BASE_URL2,
-  api: () => api,
+  createClientNextArchitecture: () => createClientNextArchitecture,
   createServerNextArchitecture: () => createServerNextArchitecture
 });
 module.exports = __toCommonJS(index_exports);
+
+// src/useServiceCall/index.ts
+var import_react_query = require("react-query");
+var useServiceCall = ({ fn }) => {
+  const {
+    mutateAsync,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle,
+    data
+  } = (0, import_react_query.useMutation)(async (...args) => {
+    const response = await fn(...args);
+    return response;
+  });
+  const makeRequest = (props) => {
+    mutateAsync(props);
+  };
+  return {
+    makeRequest,
+    data,
+    args: data?.args,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle
+  };
+};
+var useServiceCall_default = useServiceCall;
 
 // src/axios/index.ts
 var import_axios = __toESM(require("axios"));
@@ -87,8 +117,6 @@ var http = new Http();
 var http_default = http;
 
 // src/index.ts
-var BASE_URL2 = "";
-var api = {};
 function createApiClass(list) {
   return class Api {
     constructor() {
@@ -105,14 +133,30 @@ function createApiClass(list) {
     }
   };
 }
+function createPrimitiveClient(serverApi) {
+  class PrimitiveClient {
+    constructor() {
+      Object.keys(serverApi).forEach((key) => {
+        this[key] = () => {
+          return useServiceCall_default({ fn: serverApi[key] });
+        };
+      });
+    }
+  }
+  return PrimitiveClient;
+}
 function createServerNextArchitecture(list) {
   const PrimitiveServer = createApiClass(list);
   const server = new PrimitiveServer();
   return server;
 }
+function createClientNextArchitecture(serverApi, list) {
+  const PrimitiveClient = createPrimitiveClient(serverApi);
+  const client = new PrimitiveClient();
+  return client;
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  BASE_URL,
-  api,
+  createClientNextArchitecture,
   createServerNextArchitecture
 });

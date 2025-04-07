@@ -1,3 +1,34 @@
+// src/useServiceCall/index.ts
+import { useMutation } from "react-query";
+var useServiceCall = ({ fn }) => {
+  const {
+    mutateAsync,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle,
+    data
+  } = useMutation(async (...args) => {
+    const response = await fn(...args);
+    return response;
+  });
+  const makeRequest = (props) => {
+    mutateAsync(props);
+  };
+  return {
+    makeRequest,
+    data,
+    args: data?.args,
+    isLoading,
+    isSuccess,
+    isPaused,
+    isError,
+    isIdle
+  };
+};
+var useServiceCall_default = useServiceCall;
+
 // src/axios/index.ts
 import axios from "axios";
 var createConfiguredAxiosInstance = (options) => {
@@ -49,8 +80,6 @@ var http = new Http();
 var http_default = http;
 
 // src/index.ts
-var BASE_URL2 = "";
-var api = {};
 function createApiClass(list) {
   return class Api {
     constructor() {
@@ -67,13 +96,29 @@ function createApiClass(list) {
     }
   };
 }
+function createPrimitiveClient(serverApi) {
+  class PrimitiveClient {
+    constructor() {
+      Object.keys(serverApi).forEach((key) => {
+        this[key] = () => {
+          return useServiceCall_default({ fn: serverApi[key] });
+        };
+      });
+    }
+  }
+  return PrimitiveClient;
+}
 function createServerNextArchitecture(list) {
   const PrimitiveServer = createApiClass(list);
   const server = new PrimitiveServer();
   return server;
 }
+function createClientNextArchitecture(serverApi, list) {
+  const PrimitiveClient = createPrimitiveClient(serverApi);
+  const client = new PrimitiveClient();
+  return client;
+}
 export {
-  BASE_URL2 as BASE_URL,
-  api,
+  createClientNextArchitecture,
   createServerNextArchitecture
 };

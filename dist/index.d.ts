@@ -8,8 +8,21 @@ type ApiConfig = {
         DATA_PROPS?: unknown;
     };
 };
+interface ApiClientResourcesProps<T = any, K = any> {
+    makeRequest: (props?: K) => void;
+    data: T;
+    args: K;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isPaused: boolean;
+    isError: boolean;
+    isIdle: boolean;
+}
 type ServerApiMethods<T extends ApiConfig> = {
     [K in keyof T]: (params?: T[K]['ARGS_PROPS']) => Promise<T[K]['DATA_PROPS']>;
+};
+type ClientApiMethods<T extends ApiConfig> = {
+    [K in keyof T]: (params?: any) => ApiClientResourcesProps<T[K]["DATA_PROPS"], T[K]["ARGS_PROPS"]>;
 };
 
 interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
@@ -19,8 +32,7 @@ interface ApiEndpoint<ArgsProps = unknown, DataProps = unknown> {
     readonly ARGS_PROPS?: ArgsProps;
     readonly DATA_PROPS?: DataProps;
 }
-declare const BASE_URL = "";
-declare const api: {};
 declare function createServerNextArchitecture<T extends ApiConfig>(list: T): ServerApiMethods<T>;
+declare function createClientNextArchitecture<T extends ServerApiMethods<any>, K extends ApiConfig>(serverApi: T, list: K): ClientApiMethods<K>;
 
-export { type ApiEndpoint, BASE_URL, api, createServerNextArchitecture };
+export { type ApiEndpoint, createClientNextArchitecture, createServerNextArchitecture };
