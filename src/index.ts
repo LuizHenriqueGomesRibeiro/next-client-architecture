@@ -35,9 +35,14 @@ function createPrimitiveClient<T extends ServerApiMethods<any>>(serverApi: T) {
 
     Object.keys(serverApi).forEach((key) => {
         client[key as keyof T] = () => {
-            return useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
+          if (typeof window === "undefined") {
+            throw new Error(
+              `❌ [next-client-architecture]: Tentativa de usar ${String(key)} fora do client.`
+            );
+          }
+          return useServiceCall({ fn: serverApi[key as keyof T] }) as ApiClientResourcesProps;
         };
-    });
+      });
 
     return client;
 }

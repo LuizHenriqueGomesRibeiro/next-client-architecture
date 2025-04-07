@@ -100,6 +100,11 @@ function createPrimitiveClient(serverApi) {
   const client = {};
   Object.keys(serverApi).forEach((key) => {
     client[key] = () => {
+      if (typeof window === "undefined") {
+        throw new Error(
+          `\u274C [next-client-architecture]: Tentativa de usar ${String(key)} fora do client.`
+        );
+      }
       return useServiceCall_default({ fn: serverApi[key] });
     };
   });
