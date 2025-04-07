@@ -52,8 +52,8 @@ function createServerNextArchitecture<T extends ApiConfig>(list: T) {
 }
 
 function createClientNextArchitecture<T extends ServerApiMethods<any>, K extends ApiConfig>(serverApi: T, list: K) {
-    //@ts-ignore
-    const client: ClientApiMethods<typeof list> = createPrimitiveClient(serverApi);
+    const PrimitiveClient = createPrimitiveClient(serverApi);
+    const client: ClientApiMethods<typeof list> = new PrimitiveClient();
     return client;
 }
 

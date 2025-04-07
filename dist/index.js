@@ -151,7 +151,8 @@ function createServerNextArchitecture(list) {
   return server;
 }
 function createClientNextArchitecture(serverApi, list) {
-  const client = createPrimitiveClient(serverApi);
+  const PrimitiveClient = createPrimitiveClient(serverApi);
+  const client = new PrimitiveClient();
   return client;
 }
 // Annotate the CommonJS export names for ESM import in node:
