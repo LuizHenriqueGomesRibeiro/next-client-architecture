@@ -10,7 +10,7 @@ export type ApiConfig = {
     };
 };
 
-interface ApiClientResourcesProps<T = any, K = any> {
+export interface ApiClientResourcesProps<T = any, K = any> {
     makeRequest: (props?: K) => void,
     data: T,
     args: K,

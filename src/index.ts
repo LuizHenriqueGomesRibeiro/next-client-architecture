@@ -1,5 +1,6 @@
 import { ApiConfig, ClientApiMethods, MethodProps, ServerApiMethods } from "./api/types";
-import { ApiClientResourcesProps } from "./api/client/types";
+import { ApiClientResourcesProps } from "./api/types";
+
 import useServiceCall from "./useServiceCall";
 import http from "./http";
 
