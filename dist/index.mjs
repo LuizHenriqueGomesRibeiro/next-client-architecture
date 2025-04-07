@@ -58,20 +58,17 @@ var createConfiguredAxiosInstance = (options) => {
   return axiosInstance;
 };
 
-// ../../../src/api/index.ts
-var BASE_URL = "";
-
 // src/http/index.ts
 var Http = class {
   publicClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: false
     });
   }
   privateClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: true
     });
   }
