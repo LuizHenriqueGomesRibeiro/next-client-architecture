@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "dist",            // Saída para a pasta "dist"
     "declaration": true,         // Gerar arquivos de definição de tipos
     "declarationMap": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "target": "ESNext",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
   },
   "include": ["src", "endpoints"]
 }
