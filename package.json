@@ -1,6 +1,6 @@
 {
   "name": "@caucolum/next-client-architecture",
-  "version": "1.0.73",
+  "version": "1.0.90",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -21,7 +21,11 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "axios": "^1.8.4",
-    "react-query": "^3.39.3"
+    "react": "^18.0.0",
+    "axios": "^1.8.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }

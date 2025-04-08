@@ -35,37 +35,6 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/useServiceCall/index.ts
-var import_react_query = require("react-query");
-var useServiceCall = ({ fn }) => {
-  const {
-    mutateAsync,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle,
-    data
-  } = (0, import_react_query.useMutation)(async (...args) => {
-    const response = await fn(...args);
-    return response;
-  });
-  const makeRequest = (props) => {
-    mutateAsync(props);
-  };
-  return {
-    makeRequest,
-    data,
-    args: data?.args,
-    isLoading,
-    isSuccess,
-    isPaused,
-    isError,
-    isIdle
-  };
-};
-var useServiceCall_default = useServiceCall;
-
 // src/axios/index.ts
 var import_axios = __toESM(require("axios"));
 var createConfiguredAxiosInstance = (options) => {
@@ -95,26 +64,47 @@ var createConfiguredAxiosInstance = (options) => {
   return axiosInstance;
 };
 
-// ../../../src/api/index.ts
-var BASE_URL = "";
-
 // src/http/index.ts
 var Http = class {
   publicClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: false
     });
   }
   privateClient() {
     return createConfiguredAxiosInstance({
-      url: BASE_URL,
+      url: "",
       withBearerToken: true
     });
   }
 };
 var http = new Http();
 var http_default = http;
+
+// src/useServiceCall/index.tsx
+var import_react = require("react");
+var useServiceCall = ({ fn }) => {
+  const [status, setStatus] = (0, import_react.useState)("idle");
+  const [args, setArgs] = (0, import_react.useState)(null);
+  const [error, setError] = (0, import_react.useState)(null);
+  const [data, setData] = (0, import_react.useState)(null);
+  const makeRequest = async (...args2) => {
+    setStatus("loading");
+    setArgs(args2);
+    try {
+      const response = await fn(...args2);
+      setData(response);
+      setStatus("loaded");
+      return response;
+    } catch (err) {
+      setStatus("error");
+      setError(err);
+    }
+  };
+  return { data, status, error, args, makeRequest };
+};
+var useServiceCall_default = useServiceCall;
 
 // src/index.ts
 function createApiClass(list) {
